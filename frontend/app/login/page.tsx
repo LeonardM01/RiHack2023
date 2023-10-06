@@ -26,11 +26,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { signInWithGoogle, signInWithGithub, session } = useContext(AuthContext);
-
-  if(session !== null) {
-    router.back();
-  }
+  const { signInWithGoogle, signInWithGithub } = useContext(AuthContext);
 
   return (
     <main className="mx-auto max-w-[1440px] flex-center w-screen min-h-screen">

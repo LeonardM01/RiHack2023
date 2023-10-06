@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/actions/supabase/supabase.client";
 
 const Home = () => {
-  const { signOut} = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
 
   return (
     <main>

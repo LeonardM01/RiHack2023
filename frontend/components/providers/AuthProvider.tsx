@@ -11,10 +11,6 @@ import { Database } from "@/types/supabase";
 import { ContextI } from "@/types";
 
 export const AuthContext = createContext<ContextI>({
-  user: null,
-  error: null,
-  isLoading: true,
-  session: null,
   signOut: async () => {},
   signInWithGithub: async () => {},
   signInWithGoogle: async () => {},
@@ -28,8 +24,7 @@ export default function SupabaseAuthProvider({
 }) {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
-
-  const [session, setSession] = useState<Session | null | undefined>(undefined);
+  const URL = process.env.NEXT_PUBLIC_URL;
 
   // Sign Out
   const signOut = async () => {
@@ -41,7 +36,9 @@ export default function SupabaseAuthProvider({
   const signInWithGithub = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "github",
-      options: { redirectTo: "/" },
+      options: {
+        redirectTo: `${URL}/auth/callback`,
+      },
     });
   };
 
@@ -49,7 +46,9 @@ export default function SupabaseAuthProvider({
   const signInWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: "/" },
+      options: {
+        redirectTo: `${URL}/auth/callback`,
+      },
     });
   };
 
@@ -67,34 +66,12 @@ export default function SupabaseAuthProvider({
     return null;
   };
 
-  const getSession = async () => {
-    const { data } = await supabase.auth.getSession();
-    setSession(data.session);
-  };
-
-  // Refresh the Page to Sync Server and Client
-  useEffect(() => {
-    getSession();
-  }, []);
-
-  const exposed: ContextI = {
-    user: null,
-    error: null,
-    isLoading: false,
-    session,
+const exposed: ContextI = {
     signOut,
     signInWithGithub,
     signInWithGoogle,
     signInWithEmail,
   };
-
-  if(session === undefined) return (
-    <div className="w-screen h-screen flex-center">loading...</div>
-  )
-
-  if (session === null) {
-    router.replace("/login");
-  }
 
   return (
     <AuthContext.Provider value={exposed}>{children}</AuthContext.Provider>
