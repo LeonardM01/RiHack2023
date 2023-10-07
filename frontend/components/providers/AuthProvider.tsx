@@ -3,17 +3,17 @@
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import {
-  Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 
 import { Database } from "@/types/supabase";
-import { ContextI } from "@/types";
+import { ContextI, UserI } from "@/types";
 
 export const AuthContext = createContext<ContextI>({
-  signOut: async () => {},
-  signInWithGithub: async () => {},
-  signInWithGoogle: async () => {},
+  user: null,
+  signOut: async () => { },
+  signInWithGithub: async () => { },
+  signInWithGoogle: async () => { },
   signInWithEmail: async (email: string, password: string) => null,
 });
 
@@ -22,9 +22,34 @@ export default function SupabaseAuthProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const URL = process.env.NEXT_PUBLIC_URL;
+
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
-  const URL = process.env.NEXT_PUBLIC_URL;
+
+  const [user, setUser] = useState<UserI | null>(null);
+
+  const getUserData = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (user) {
+      const { data: userData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user?.id || "")
+
+      setUser({
+        id: user?.id || "",
+        email: user?.email || "",
+        first_name: userData![0].first_name,
+        last_name: userData![0].last_name,
+        avatar: userData![0].avatar,
+      })
+    } else {
+      setUser(null)
+    }
+
+  }
 
   // Sign Out
   const signOut = async () => {
@@ -66,7 +91,12 @@ export default function SupabaseAuthProvider({
     return null;
   };
 
-const exposed: ContextI = {
+  useEffect(() => {
+    getUserData();
+  }, [])
+
+  const exposed: ContextI = {
+    user,
     signOut,
     signInWithGithub,
     signInWithGoogle,

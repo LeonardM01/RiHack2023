@@ -4,14 +4,18 @@ import { useContext } from "react";
 
 import { AuthContext } from "@/components/providers/AuthProvider";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/actions/supabase/supabase.client";
+import CircularLoader from "@/components/loaders/CircularLoader";
 
 const Home = () => {
-  const { signOut } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
+
+  if (!user) return (
+    <CircularLoader />
+  )
 
   return (
-    <main>
-      <Button onClick={signOut}>Log Out</Button>   
+    <main className="flex-center w-screen h-full">
+      <Button onClick={signOut}>Log Out</Button>
     </main>
   )
 }
