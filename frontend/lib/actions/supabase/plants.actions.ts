@@ -14,6 +14,19 @@ export async function createPlant(client: SupabaseClient<Database>, plant: Inser
   return data;
 }
 
+export async function getPlantByUserId(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("plants")
+    .select("*")
+    .eq("owner", userId)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+  return data;
+}
+
 export async function getPlantById(client: SupabaseClient<Database>, plantId: string) {
   const { data, error } = await client
     .from("plants")
