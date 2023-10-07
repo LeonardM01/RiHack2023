@@ -1,5 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/types/supabase";
+import { Problem, ProblemInsert, ProblemStatisticsInsert } from "@/types";
 
 export async function getProblemById(client: SupabaseClient<Database>, problemId: string) {
   const { data, error } = await client
@@ -15,8 +16,6 @@ export async function getProblemById(client: SupabaseClient<Database>, problemId
   return data;
 }
 
-type ProblemInsert = Database["public"]["Tables"]["problems"]["Insert"]
-
 export async function createProblem(client: SupabaseClient<Database>, problem: ProblemInsert) {
   problem.created_at = new Date().toISOString();
   const { data, error } = await client
@@ -28,8 +27,6 @@ export async function createProblem(client: SupabaseClient<Database>, problem: P
   }
   return data;
 }
-
-type ProblemStatisticsInsert = Database["public"]["Tables"]["problem_statistics"]["Insert"]
 
 export async function createProblemStatistics(client: SupabaseClient<Database>, statistics: ProblemStatisticsInsert) {
   const { data, error } = await client
@@ -54,7 +51,7 @@ export async function getProblemStatistics(client: SupabaseClient<Database>) {
   return data!;
 }
 
-export async function getUserProblems(client: SupabaseClient<Database>, userId: string) {
+export async function getUserProblems(client: SupabaseClient<Database>, userId: string): Promise<Problem[]> {
   const { data, error } = await client
     .from("problems")
     .select("*")

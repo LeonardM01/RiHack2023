@@ -43,12 +43,11 @@ export async function getPlantById(client: SupabaseClient<Database>, plantId: st
 
 type PlantUpdateData = Database["public"]["Tables"]["plants"]["Update"];
 
-export async function updatePlant(client: SupabaseClient<Database>, plantId: string, dataToUpdate: PlantUpdateData) {
+export async function updatePlant(client: SupabaseClient<Database>, plantId: number, dataToUpdate: PlantUpdateData) {
   const { data, error } = await client
     .from("plants")
     .update(dataToUpdate)
-    .eq("id", plantId)
-    .single();
+    .eq("id", plantId);
 
   if (error) {
     throw error;
@@ -88,15 +87,9 @@ export async function updatePlantGrowth(client: SupabaseClient<Database>, plant:
   const newMultiplier = calculateNewPlantMultiplier(plant, amount, goal);
 
   const growth = plant.growth + BASE_GROWTH_RATE * newMultiplier;
-  const { error } = await client
-    .from("plants")
-    .update({ growth, growth_multiplier: newMultiplier });
-
+  await updatePlant(client, plant.id, { growth, growth_multiplier: newMultiplier });
   plant.growth = growth;
   plant.growth_multiplier = newMultiplier;
-  if (error) {
-    throw error;
-  }
 
   return plant;
 }
@@ -105,7 +98,7 @@ const MIN_MULTIPLIER_VALUE = 0.1;
 
 function calculateNewPlantMultiplier(plant: Plant, amount: number, goal: number) {
   const goalReached = amount <= goal ? 1 : -1;
-  const percentage = amount / goal;
+  const percentage = amount <= goal ? amount / goal : amount / goal - 1;
 
   const multiplierChange = 2 * percentage * percentage * goalReached;
 
