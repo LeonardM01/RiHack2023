@@ -31,7 +31,7 @@ const ProgressSection = () => {
   }, [user])
 
   return (
-    <div className="flex-center flex-col gap-y-5 w-1/2 bg-black-300 px-20 pt-8 pb-10 rounded-lg">
+    <div className="flex-center flex-col gap-y-5 lg:w-1/2 bg-black-300 px-20 pt-8 pb-10 rounded-lg w-full">
       <h1 className="heading3">Your Progress</h1>
       {progressUrl ? (
         <>
@@ -42,7 +42,7 @@ const ProgressSection = () => {
         </>
       ) : (
         <>
-          <Skeleton className="w-[300px] h-[331px] bg-black-400" />
+          <Skeleton className="w-[250px] h-[331px] bg-black-400" />
           <Skeleton className="w-full h-4 bg-black-400 rounded-full" />
         </>
       )}

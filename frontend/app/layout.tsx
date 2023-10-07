@@ -22,7 +22,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${roboto.className} text-white w-screen min-h-[100vh] bg-black-100`}>
+      <body className={`${roboto.className} text-white min-w-screen bg-black-100`}>
         <SupabaseAuthProvider>
           {children}
         </SupabaseAuthProvider>

@@ -20,6 +20,10 @@ const links: Array<{ name: string, url: string }> = [
     name: 'Chat',
     url: '/chat',
   },
+  {
+    name: 'Games',
+    url: '/games',
+  },
 ]
 
 const Navbar = () => {
@@ -31,10 +35,10 @@ const Navbar = () => {
     <nav className="flex-between max-w-8xl mx-auto py-8 w-full">
       <div className="flex body-regular gap-10">
         <Image
-          src="/assets/home/images/logo.pn"
+          src="/assets/home/images/logo.png"
           className="self-start"
-          width={50}
-          height={50}
+          width={150}
+          height={150}
           alt="logo"
         />
         <div className="flex-center gap-10 pl-24">
