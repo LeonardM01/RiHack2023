@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useContext } from 'react'
 import { AuthContext } from '../providers/AuthProvider';
+import { Skeleton } from '../ui/skeleton';
 
 const links: Array<{ name: string, url: string }> = [
   {
@@ -24,16 +25,16 @@ const links: Array<{ name: string, url: string }> = [
 const Navbar = () => {
   const pathname = usePathname();
 
-  const { user } = useContext(AuthContext);
+  const { user, isLoading } = useContext(AuthContext);
 
   return (
     <nav className="flex-between max-w-8xl mx-auto py-8 w-full">
       <div className="flex body-regular gap-10">
         <Image
-          src="/assets/general/images/logo.png"
+          src="/assets/home/images/logo.pn"
           className="self-start"
           width={50}
-          height={30}
+          height={50}
           alt="logo"
         />
         <div className="flex-center gap-10 pl-24">
@@ -44,23 +45,29 @@ const Navbar = () => {
       </div>
 
 
-      {!user ? (
-        <div className="flex-center gap-10 self-end">
-          <Link className="" href="/login">Log In</Link>
-          <Link className="bg-primary px-5 py-3 rounded-md" href="/sign-up">Sign Up</Link>
-        </div>
+      {!isLoading ? (
+        <>
+          {!user ? (
+            <div className="flex-center gap-10 self-end">
+              <Link className="" href="/login">Log In</Link>
+              <Link className="bg-primary px-5 py-3 rounded-md" href="/sign-up">Sign Up</Link>
+            </div>
+          ) : (
+            <div className="flex-center gap-10 self-end animate-in fade-in duration-500">
+              <Link href={`/profile/${user.id}`}>
+                <Image
+                  src={user.avatar?.length ? user.avatar : '/assets/general/icons/user-green.svg'}
+                  className="rounded-full"
+                  width={48}
+                  height={48}
+                  alt="user"
+                />
+              </Link>
+            </div>
+          )}
+        </>
       ) : (
-        <div className="flex-center gap-10 self-end">
-          <Link href={`/profile/${user.id}`}>
-            <Image
-              src={user.avatar || '/assets/general/icons/user-green.svg'}
-              className="rounded-full"
-              width={48}
-              height={48}
-              alt="user"
-            />
-          </Link>
-        </div>
+        <Skeleton className="w-12 h-12 bg-black-400 rounded-full" />
       )}
     </nav>
   )

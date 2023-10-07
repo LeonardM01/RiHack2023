@@ -11,6 +11,7 @@ import { ContextI, UserI } from "@/types";
 
 export const AuthContext = createContext<ContextI>({
   user: null,
+  isLoading: true,
   signOut: async () => { },
   signInWithGithub: async () => { },
   signInWithGoogle: async () => { },
@@ -28,6 +29,7 @@ export default function SupabaseAuthProvider({
   const supabase = createClientComponentClient<Database>();
 
   const [user, setUser] = useState<UserI | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getUserData = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -45,10 +47,10 @@ export default function SupabaseAuthProvider({
         last_name: userData![0].last_name,
         avatar: userData![0].avatar,
       })
+      setIsLoading(false);
     } else {
       setUser(null)
     }
-
   }
 
   // Sign Out
@@ -97,6 +99,7 @@ export default function SupabaseAuthProvider({
 
   const exposed: ContextI = {
     user,
+    isLoading,
     signOut,
     signInWithGithub,
     signInWithGoogle,

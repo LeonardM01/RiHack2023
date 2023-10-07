@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/types/supabase";
-import { Problem, ProblemInsert, ProblemStatisticsInsert } from "@/types";
+import { Problem, ProblemInsert, ProblemStatisticsInsert } from "@/types/supabase";
 
 export async function getProblemById(client: SupabaseClient<Database>, problemId: string) {
   const { data, error } = await client
@@ -17,7 +17,7 @@ export async function getProblemById(client: SupabaseClient<Database>, problemId
 }
 
 export async function createProblem(client: SupabaseClient<Database>, problem: ProblemInsert) {
-  problem.created_at = new Date().toISOString();
+  problem.goal_updated = new Date().toISOString();
   const { data, error } = await client
     .from("problems")
     .insert(problem);
@@ -40,9 +40,11 @@ export async function createProblemStatistics(client: SupabaseClient<Database>, 
 }
 
 
-export async function getProblemStatistics(client: SupabaseClient<Database>) {
-  const { data, error } = await client.from("problem_statistics")
-    .select("*");
+export async function getProblemStatistics(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("problem_statistics")
+    .select("*")
+    .eq('user_id', userId);
 
   if (error) {
     throw error;

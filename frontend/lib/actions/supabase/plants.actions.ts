@@ -43,7 +43,7 @@ export async function getPlantById(client: SupabaseClient<Database>, plantId: st
 
 type PlantUpdateData = Database["public"]["Tables"]["plants"]["Update"];
 
-export async function updatePlant(client: SupabaseClient<Database>, plantId: number, dataToUpdate: PlantUpdateData) {
+export async function updatePlant(client: SupabaseClient<Database>, plantId: string, dataToUpdate: PlantUpdateData) {
   const { data, error } = await client
     .from("plants")
     .update(dataToUpdate)
@@ -69,10 +69,11 @@ export async function createPlantStatistics(client: SupabaseClient<Database>, st
   return data;
 }
 
-export async function getPlantStatistics(client: SupabaseClient<Database>) {
+export async function getPlantStatistics(client: SupabaseClient<Database>, userId: string) {
   const { data, error } = await client
     .from("plant_statistics")
-    .select("*");
+    .select("*")
+    .eq('owner', userId)
 
   if (error) {
     throw error;
