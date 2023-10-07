@@ -34,11 +34,22 @@ type ProblemStatisticsInsert = Database["public"]["Tables"]["problem_statistics"
 export async function createProblemStatistics(client: SupabaseClient<Database>, statistics: ProblemStatisticsInsert) {
   const { data, error } = await client
     .from("problem_statistics")
-    .insert(statistics)
+    .insert(statistics);
 
   if (error) {
     throw error;
   }
   return data;
+}
 
+
+export async function getProblemStatistics(client: SupabaseClient<Database>) {
+  const { data, error } = await client.from("problem_statistics")
+    .select("*");
+
+  if (error) {
+    throw error;
+  }
+
+  return data!;
 }
