@@ -53,3 +53,16 @@ export async function getProblemStatistics(client: SupabaseClient<Database>) {
 
   return data!;
 }
+
+export async function getUserProblems(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("problems")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    throw error;
+  }
+
+  return data!;
+}
