@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/types/supabase";
-import { Problem, ProblemInsert, ProblemStatisticsInsert } from "@/types/supabase";
+import { Problem, ProblemInsert, ProblemStatisticsInsert } from "@/types";
 
 export async function getProblemById(client: SupabaseClient<Database>, problemId: string) {
   const { data, error } = await client

@@ -1,12 +1,15 @@
 import express from "express";
 import http from "http";
 import mongoose from "mongoose";
-import { config } from "./config/config.js";
+import { config, supabaseAdmin } from "./config/config.js";
 import { Logging } from "./helpers/Logging.js";
 
 const router = express();
-
-/** Connect to Mongo */
+const server = http.createServer(router).listen(config.server.port, () =>
+  Logging.info(`Server is running on port ${config.server.port}`)
+);
+import { Server } from "socket.io"
+/*
 mongoose
   .connect(config.db.url, { retryWrites: true, w: "majority" })
   .then(() => {
@@ -14,8 +17,8 @@ mongoose
     StartServer();
   })
   .catch((error) => Logging.error(error));
+ */
 
-/** Only Start Server if Mongoose Connects */
 const StartServer = () => {
   /** Log the request */
   router.use((req, res, next) => {
@@ -76,9 +79,33 @@ const StartServer = () => {
     });
   });
 
-  http
-    .createServer(router)
-    .listen(config.server.port, () =>
-      Logging.info(`Server is running on port ${config.server.port}`)
-    );
+    const io = new Server(server)
+
+  io.on('connection', (socket) => {
+    // Handle when a new client connects
+
+    // Handle when a client joins a room
+    socket.on('joinRoom', (roomId) => {
+      socket.join(roomId);
+      console.log(`User joined room: ${roomId}`);
+    });
+
+    // Handle when a client sends a message to a room
+    socket.on('message', async (roomId, message, sender) => {
+      const a = await supabaseAdmin.from("messages").insert({
+        text:message,
+        conversation_id:roomId,
+        sent_by:sender
+      })
+      console.log(a)
+      io.to(roomId).emit("msg",{message,sender});
+    });
+
+    // Handle when a client disconnects
+    socket.on('disconnect', () => {
+      console.log('A user disconnected');
+    });
+  });
 };
+
+StartServer()
