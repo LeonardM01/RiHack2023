@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Form = () => {
+const TypeForm = () => {
   return (
     <main className='w-full flex'>
       <iframe
@@ -12,4 +12,4 @@ const Form = () => {
   )
 }
 
-export default Form
+export default TypeForm
