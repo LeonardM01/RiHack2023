@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Problem } from "@/types";
 import { Database } from "@/types/supabase";
-import { getUserProblems } from "@/lib/actions/supabase/problems.actions";
+import { getProblemStatistics, getUserProblems } from "@/lib/actions/supabase/problems.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,13 +24,20 @@ function StatusUpdate() {
   const [problemValues, setProblemValues] = useState<ProblemValue[]>([]);
 
   useEffect(() => {
+    const getStatistics = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const data = await getProblemStatistics(supabase, session!.user.id);
+      if (data.some((obj) => new Date(obj.created_at).toDateString() === new Date().toDateString())) {
+        setCompleted(true);
+      }
+    }
     const fetchProblems = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       const problems = await getUserProblems(supabase, session!.user.id) as Problem[];
       setProblems(problems);
       setProblemValues(problems.map((problem) => ({ problemId: problem.id, amount: "" })));
     };
-    fetchProblems();
+    getStatistics().then(fetchProblems);
   }, []);
 
   const handleProblemValueChange = (problemIndex: number, value: string) => {
