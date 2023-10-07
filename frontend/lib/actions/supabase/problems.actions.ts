@@ -15,6 +15,20 @@ export async function getProblemById(client: SupabaseClient<Database>, problemId
   return data;
 }
 
+type ProblemInsert = Database["public"]["Tables"]["problems"]["Insert"]
+
+export async function createProblem(client: SupabaseClient<Database>, problem: ProblemInsert) {
+  problem.created_at = new Date().toISOString();
+  const { data, error } = await client
+    .from("problems")
+    .insert(problem);
+
+  if (error) {
+    throw error;
+  }
+  return data;
+}
+
 type ProblemStatisticsInsert = Database["public"]["Tables"]["problem_statistics"]["Insert"]
 
 export async function createProblemStatistics(client: SupabaseClient<Database>, statistics: ProblemStatisticsInsert) {
