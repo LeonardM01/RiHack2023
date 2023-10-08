@@ -20,7 +20,6 @@ const ChatCard = async ({
   return (
     <Link
       href={`/chat/${convo.id}`}
-      key={convo.id}
       className='flex gap-2 w-full'
     >
       <Image

@@ -20,7 +20,7 @@ const Sidebar = async () => {
       {conversationData.length && (
         <>
           {conversationData.map((convo: Conversation) => (
-            <ChatCard convo={convo} />
+            <ChatCard key={convo.id} convo={convo} />
           ))}
         </>
       )}
