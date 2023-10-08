@@ -21,10 +21,10 @@ const ProgressSection = () => {
 
   const getProgress = async () => {
     const plantInfo = await getPlantByUserId(supabase, user?.id || "");
-
-    if (plantInfo) {
-      setProgressUrl(calculateProgress(plantInfo.growth))
-      setProgress(plantInfo.growth)
+console.log(plantInfo)
+    if (plantInfo.length) {
+      setProgressUrl(calculateProgress(plantInfo[0].growth))
+      setProgress(plantInfo[0].growth)
     }
   }
   useEffect(() => {

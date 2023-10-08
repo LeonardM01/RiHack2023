@@ -20,7 +20,7 @@ export async function getPlantByUserId(client: SupabaseClient<Database>, userId:
     .from("plants")
     .select("*")
     .eq("owner", userId)
-    .single();
+    .order('created_at', { ascending: false });
 
   if (error) {
     throw error;
@@ -34,6 +34,18 @@ export async function getPlantById(client: SupabaseClient<Database>, plantId: st
     .select("*")
     .eq("id", plantId)
     .single();
+
+  if (error) {
+    throw error;
+  }
+  return data;
+}
+
+export async function getPlants(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("plants")
+    .select("*")
+    .eq("owner", userId);
 
   if (error) {
     throw error;
@@ -74,6 +86,7 @@ export async function getPlantStatistics(client: SupabaseClient<Database>, userI
     .from("plant_statistics")
     .select("*")
     .eq('owner', userId)
+    .order('id', { ascending: true });
 
   if (error) {
     throw error;

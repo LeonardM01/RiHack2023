@@ -13,8 +13,8 @@ const InfoCards = async () => {
   const statsData = await getProblemStatistics(supabase, user?.id || "");
 
   return (
-    <section className="w-full flex h-full gap-10 flex-wrap mt-10">
-      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
+    <section className="w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 h-full gap-10 flex-wrap mt-10">
+      <Card className="w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Message of the day</CardTitle>
         </CardHeader>
@@ -23,7 +23,7 @@ const InfoCards = async () => {
         </CardContent>
       </Card>
 
-      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
+      <Card className="w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Daily Goal</CardTitle>
           <CardDescription>Your daily goal of cigarette intake</CardDescription>
@@ -33,7 +33,7 @@ const InfoCards = async () => {
         </CardContent>
       </Card>
 
-      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
+      <Card className="w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Consumed today</CardTitle>
           <CardDescription>Your current number of cigarettes</CardDescription>
@@ -43,7 +43,7 @@ const InfoCards = async () => {
         </CardContent>
       </Card>
 
-      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
+      <Card className="w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Games</CardTitle>
           <CardDescription>Train your focus</CardDescription>

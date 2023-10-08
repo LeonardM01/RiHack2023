@@ -41,7 +41,7 @@ const Navbar = () => {
           height={150}
           alt="logo"
         />
-        <div className="flex-center gap-10 pl-24">
+        <div className="flex-center gap-10 pl-14">
           {links.map((link: { name: string, url: string }, index: number) => (
             <Link key={index}
                   className={`${pathname === link.url ? "text-primary border-b border-primary" : "hover:text-white/80"}`}
