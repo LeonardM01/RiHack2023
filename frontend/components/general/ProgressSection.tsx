@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import { useContext, useEffect, useState } from "react";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import LottiePlayer from "@/components/general/LottiePlayer";
 import { getPlantByUserId } from "@/lib/actions/supabase/plants.actions";
@@ -10,11 +10,12 @@ import { AuthContext } from "../providers/AuthProvider";
 import { calculateProgress } from "@/lib/utils";
 import { Progress } from "../ui/progress";
 import { Skeleton } from "../ui/skeleton";
+import PlantSuccess from "@/components/general/PlantSuccess";
 
 const ProgressSection = () => {
   const [progressUrl, setProgressUrl] = useState<string | null>(null);
   const [progress, setProgress] = useState<number | null>(null);
-
+  const [plantFullyGrown, setPlantFullyGrown] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
 
   const supabase = createClientComponentClient<Database>();
@@ -23,19 +24,21 @@ const ProgressSection = () => {
     const plantInfo = await getPlantByUserId(supabase, user?.id || "");
 console.log(plantInfo)
     if (plantInfo.length) {
-      setProgressUrl(calculateProgress(plantInfo[0].growth))
-      setProgress(plantInfo[0].growth)
+      setProgressUrl(calculateProgress(plantInfo[0].growth));
+      setProgress(plantInfo[0].growth);
+      setPlantFullyGrown(plantInfo[0].growth === 1);
     }
-  }
+  };
   useEffect(() => {
     if (user) {
       getProgress();
     }
-  }, [user])
+  }, [user]);
 
   return (
     <div className="flex-center flex-col gap-y-5 lg:w-1/2 bg-black-300 md:px-20 px-10 pt-8 pb-10 rounded-lg w-full">
       <h1 className="heading3">Your Progress</h1>
+      {plantFullyGrown && <PlantSuccess setProgress={setProgress} setProgressUrl={setProgressUrl} />}
       {progressUrl ? (
         <>
           <LottiePlayer
@@ -50,7 +53,7 @@ console.log(plantInfo)
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProgressSection
+export default ProgressSection;

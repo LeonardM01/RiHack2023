@@ -28,7 +28,7 @@ function StatusUpdate() {
       const { data: { session } } = await supabase.auth.getSession();
       const data = await getProblemStatistics(supabase, session!.user.id);
       if (data.some((obj) => new Date(obj.created_at).toDateString() === new Date().toDateString())) {
-        // setCompleted(true);
+        setCompleted(true);
       }
     }
     const fetchProblems = async () => {
