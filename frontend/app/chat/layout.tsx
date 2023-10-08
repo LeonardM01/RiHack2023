@@ -1,3 +1,4 @@
+import Navbar from '@/components/general/Navbar';
 import Sidebar from '@/components/general/Sidebar';
 import { ReactNode } from 'react'
 

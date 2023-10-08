@@ -39,6 +39,7 @@ const page = async () => {
         <DataTable data={plants} columns={columns} />
         <PlantsGraph />
       </section>
+
     </main>
   );
 };

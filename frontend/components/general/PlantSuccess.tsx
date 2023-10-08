@@ -1,4 +1,5 @@
 "use client";
+
 import { Dispatch, SetStateAction, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PartyPopper } from "lucide-react";
@@ -21,6 +22,14 @@ function PlantSuccess(props: { setProgress: Dispatch<SetStateAction<number | nul
       name: "Plant",
     });
     setOpen(false);
+
+    await fetch('/api/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: user.data.user?.email,
+      })
+    })
+
     router.replace("/")
   };
 

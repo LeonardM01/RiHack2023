@@ -32,7 +32,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
       user?.id || ""
     );
 
-    console.log(user?.id)
+    console.log(user?.id);
     if (messagesData.length) {
       console.log(messagesData);
       const senderData = await getUserById(
@@ -74,7 +74,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
   }, [user, messages]);
 
   const sendMessage = async () => {
-    console.log(user?.id)
+    console.log(user?.id);
     if (socket) socket.emit("message", params.id, message, user?.id);
   };
 
@@ -112,25 +112,29 @@ const Chat = ({ params }: { params: { id: string } }) => {
               <div
                 key={message.id}
                 className={`flex gap-2 ml-5 ${
-                  message.sent_by === user?.id ? "self-start" : "self-end"
+                  message.sent_by === user?.id ? "self-end" : "self-start"
                 }`}
               >
                 {/* <Image
-                  src={
-                    message.sent_by === user?.id
-                      ? !user.avatar
+                    src={
+                      message.sent_by === user?.id
+                        ? !user.avatar
+                          ? "/assets/general/icons/user-green.svg"
+                          : user.avatar
+                        : sender.avatar
                         ? "/assets/general/icons/user-green.svg"
-                        : user.avatar
-                      : sender.avatar
-                      ? "/assets/general/icons/user-green.svg"
-                      : sender.avatar
-                  }
-                  className='rounded-full'
-                  width={50}
-                  height={50}
-                  alt='avatar'
-                /> */}
-                <div className='text-white bg-black-400 h-fit self-center rounded-lg p-2 body-regular'>
+                        : sender.avatar
+                    }
+                    className='rounded-full'
+                    width={50}
+                    height={50}
+                    alt='avatar'
+                  /> */}
+                <div
+                  className={`text-white h-fit self-center rounded-lg p-2 body-regular ${
+                    message.sent_by === user?.id ? "bg-primary" : "bg-black-400"
+                  }`}
+                >
                   {message.text}
                 </div>
               </div>
