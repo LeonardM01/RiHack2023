@@ -21,9 +21,16 @@ export async function listConversations(client: SupabaseClient<Database>, userId
     .select("*")
     .or("random_user_id.eq."+userId+",initial_user_id.eq."+userId)
 
+  const mappedData = data!.map((conversation) => {
+    const friendId = conversation.initial_user_id === userId ? conversation.random_user_id as string : conversation.initial_user_id as string;
+    return {
+      ...conversation,
+      friendId
+    };
+  })
 
   if (error) {
     throw error;
   }
-  return data;
+  return mappedData;
 }
