@@ -39,7 +39,7 @@ const InfoCards = async () => {
           <CardDescription>Your current number of cigarettes</CardDescription>
         </CardHeader>
         <CardContent className="heading3">
-          {statsData[0].daily_amount} <span className="heading4">cigarettes</span>
+          {statsData.length ? statsData[0].daily_amount : ""} <span className="heading4">cigarettes</span>
         </CardContent>
       </Card>
 

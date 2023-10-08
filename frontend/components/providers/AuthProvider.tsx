@@ -90,7 +90,7 @@ export default function SupabaseAuthProvider({
       return error.message;
     }
 
-    return null;
+    return router.replace("/");
   };
 
   useEffect(() => {
