@@ -1,30 +1,30 @@
-'use client';
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { useContext } from 'react'
-import { AuthContext } from '../providers/AuthProvider';
-import { Skeleton } from '../ui/skeleton';
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import { Skeleton } from "../ui/skeleton";
 
 const links: Array<{ name: string, url: string }> = [
   {
-    name: 'Home',
-    url: '/',
+    name: "Home",
+    url: "/"
   },
   {
-    name: 'Stats',
-    url: '/statistics',
+    name: "Stats",
+    url: "/statistics"
   },
   {
-    name: 'Chat',
-    url: '/chat',
+    name: "Chat",
+    url: "/chat"
   },
   {
-    name: 'Games',
-    url: '/games',
-  },
-]
+    name: "Games",
+    url: "/games"
+  }
+];
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -43,7 +43,9 @@ const Navbar = () => {
         />
         <div className="flex-center gap-10 pl-24">
           {links.map((link: { name: string, url: string }, index: number) => (
-            <Link key={index} className={`${pathname === link.url ? 'text-primary border-b border-primary' : 'hover:text-white/80'}`} href={link.url}>{link.name}</Link>
+            <Link key={index}
+                  className={`${pathname === link.url ? "text-primary border-b border-primary" : "hover:text-white/80"}`}
+                  href={link.url}>{link.name}</Link>
           ))}
         </div>
       </div>
@@ -60,7 +62,7 @@ const Navbar = () => {
             <div className="flex-center gap-10 self-end animate-in fade-in duration-500">
               <Link href={`/profile/${user.id}`}>
                 <Image
-                  src={user.avatar ? user.avatar : '/assets/general/icons/user-green.svg'}
+                  src={user.avatar ? user.avatar : "/assets/general/icons/user-green.svg"}
                   className="rounded-full"
                   width={48}
                   height={48}
@@ -74,7 +76,7 @@ const Navbar = () => {
         <Skeleton className="w-12 h-12 bg-black-400 rounded-full" />
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
