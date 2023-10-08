@@ -25,8 +25,8 @@ const InfoCards = async () => {
 
       <Card className="w-full bg-black-300 text-white border-0">
         <CardHeader>
-          <CardTitle>Daily Goal</CardTitle>
-          <CardDescription>Your daily goal of cigarette intake</CardDescription>
+          <CardTitle>Daily Limit</CardTitle>
+          <CardDescription>Your daily limit of cigarette intake</CardDescription>
         </CardHeader>
         <CardContent className="heading3">
           {statsData.length ? statsData[0].goal : ""} <span className="heading4">{statsData.length ? 'cigarettes' : 'Not yet submitted'}</span>

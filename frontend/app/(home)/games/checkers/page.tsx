@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Checkers = () => {
   return (
     <main className='w-full h-full flex-center mt-10'>

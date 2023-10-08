@@ -35,7 +35,7 @@ const page = async () => {
 
   return (
     <main className='flex-center w-full h-full flex-col max-md:flex-col-reverse pb-14 mt-10'>
-      <section className="w-full flex-between gap-2">
+      <section className="w-full flex-between gap-x-2 gap-y-10 max-md:flex-col max-md:mt-10">
         <DataTable data={plants} columns={columns} />
         <PlantsGraph />
       </section>
