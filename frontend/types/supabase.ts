@@ -48,18 +48,21 @@ export interface Database {
           conversation_id: number | null
           created_at: string
           id: number
+          sent_by: string | null
           text: string
         }
         Insert: {
           conversation_id?: number | null
           created_at?: string
           id?: number
+          sent_by?: string | null
           text: string
         }
         Update: {
           conversation_id?: number | null
           created_at?: string
           id?: number
+          sent_by?: string | null
           text?: string
         }
         Relationships: [
@@ -67,6 +70,12 @@ export interface Database {
             foreignKeyName: "messages_conversation_id_fkey"
             columns: ["conversation_id"]
             referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sent_by_fkey"
+            columns: ["sent_by"]
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
         ]

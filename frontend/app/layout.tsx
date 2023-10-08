@@ -9,9 +9,10 @@ const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "RiGrow",
   description: "Positive mind",
-  themeColor: "black",
+  themeColor: "#0D1117",
   referrer: "origin-when-cross-origin",
   colorScheme: "dark",
+  manifest: '/manifest.json'
 };
 
 export default async function RootLayout({

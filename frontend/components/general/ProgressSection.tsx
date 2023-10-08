@@ -21,8 +21,11 @@ const ProgressSection = () => {
 
   const getProgress = async () => {
     const plantInfo = await getPlantByUserId(supabase, user?.id || "");
-    setProgress(plantInfo.growth)
-    setProgressUrl(calculateProgress(plantInfo.growth))
+
+    if (plantInfo) {
+      setProgressUrl(calculateProgress(plantInfo.growth))
+      setProgress(plantInfo.growth)
+    }
   }
   useEffect(() => {
     if (user) {
@@ -31,7 +34,7 @@ const ProgressSection = () => {
   }, [user])
 
   return (
-    <div className="flex-center flex-col gap-y-5 lg:w-1/2 bg-black-300 px-20 pt-8 pb-10 rounded-lg w-full">
+    <div className="flex-center flex-col gap-y-5 lg:w-1/2 bg-black-300 md:px-20 px-10 pt-8 pb-10 rounded-lg w-full">
       <h1 className="heading3">Your Progress</h1>
       {progressUrl ? (
         <>

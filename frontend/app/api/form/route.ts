@@ -2,7 +2,6 @@ import { createProblem } from "@/lib/actions/supabase/problems.actions";
 import { getUserByEmail } from "@/lib/actions/supabase/users.actions";
 import { Database } from "@/types/supabase";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { error } from "console";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

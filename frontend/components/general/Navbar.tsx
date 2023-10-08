@@ -32,7 +32,7 @@ const Navbar = () => {
   const { user, isLoading } = useContext(AuthContext);
 
   return (
-    <nav className="flex-between max-w-8xl mx-auto py-8 w-full">
+    <nav className="max-w-8xl mx-auto py-8 w-full md:flex-between hidden">
       <div className="flex body-regular gap-10">
         <Image
           src="/assets/home/images/logo.png"
@@ -60,7 +60,7 @@ const Navbar = () => {
             <div className="flex-center gap-10 self-end animate-in fade-in duration-500">
               <Link href={`/profile/${user.id}`}>
                 <Image
-                  src={user.avatar?.length ? user.avatar : '/assets/general/icons/user-green.svg'}
+                  src={user.avatar ? user.avatar : '/assets/general/icons/user-green.svg'}
                   className="rounded-full"
                   width={48}
                   height={48}

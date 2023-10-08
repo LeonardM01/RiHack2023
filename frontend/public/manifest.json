@@ -1,0 +1,23 @@
+{
+  "name": "RiGrow",
+  "short_name": "RiGrow",
+  "icons": [
+    {
+      "src": "/assets/home/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+    },
+    {
+      "src": "/assets/home/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+  ],
+  "theme_color": "#3AB67E",
+  "background_color": "#0D1117",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "prefer_related_applications": true
+}

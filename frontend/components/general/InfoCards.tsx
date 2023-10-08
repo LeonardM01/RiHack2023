@@ -1,5 +1,5 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { getProblemStatistics } from '@/lib/actions/supabase/problems.actions'
@@ -14,7 +14,7 @@ const InfoCards = async () => {
 
   return (
     <section className="w-full flex h-full gap-10 flex-wrap mt-10">
-      <Card className="w-[330px] bg-black-300 text-white border-0">
+      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Message of the day</CardTitle>
         </CardHeader>
@@ -23,17 +23,17 @@ const InfoCards = async () => {
         </CardContent>
       </Card>
 
-      <Card className="w-[330px] bg-black-300 text-white border-0">
+      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Daily Goal</CardTitle>
           <CardDescription>Your daily goal of cigarette intake</CardDescription>
         </CardHeader>
         <CardContent className="heading3">
-          {statsData[0].goal} <span className="heading4">cigarettes</span>
+          {statsData.length ? statsData[0].goal : ""} <span className="heading4">{statsData.length ? 'cigarettes' : 'Not yet submitted'}</span>
         </CardContent>
       </Card>
 
-      <Card className="w-[330px] bg-black-300 text-white border-0">
+      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Consumed today</CardTitle>
           <CardDescription>Your current number of cigarettes</CardDescription>
@@ -43,7 +43,7 @@ const InfoCards = async () => {
         </CardContent>
       </Card>
 
-      <Card className="w-[330px] bg-black-300 text-white border-0">
+      <Card className="md:w-[330px] w-full bg-black-300 text-white border-0">
         <CardHeader>
           <CardTitle>Games</CardTitle>
           <CardDescription>Train your focus</CardDescription>

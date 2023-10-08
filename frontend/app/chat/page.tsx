@@ -11,16 +11,9 @@ async function ChatOverview() {
 
 
   return (
-    <Card className="flex min-h-fit">
-      <div className="bg-amber-50 p-5 flex flex-col">
-        {conversations?.map((conversation) => (
-          <div>
-            <CardTitle>{conversation.friendId}</CardTitle>
-          </div>
-        ))}
-      </div>
-      <div className="bg-amber-300"></div>
-    </Card>
+    <div>
+      heykl
+    </div>
   );
 }
 

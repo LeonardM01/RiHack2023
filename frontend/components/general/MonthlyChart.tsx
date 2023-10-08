@@ -20,13 +20,15 @@ const MonthlyChart = () => {
     const data = await getProblemStatistics(supabase, user?.id || "");
     let updatedGraphData = graphData || [];
 
-    data.map((day) => {
-      updatedGraphData.push({
-        date: `${new Date(day.created_at).getDay() + 1}.${new Date(day.created_at).getMonth()}`,
-        value: day.daily_amount,
+    if (data) {
+      data.map((day) => {
+        updatedGraphData.push({
+          date: `${new Date(day.created_at).getDay() + 1}.${new Date(day.created_at).getMonth()}`,
+          value: day.daily_amount,
+        })
       })
-    })
-    setGraphData(updatedGraphData)
+      setGraphData(updatedGraphData)
+    }
   }
 
   useEffect(() => {
