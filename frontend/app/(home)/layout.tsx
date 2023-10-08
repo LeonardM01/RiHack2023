@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 const HomeLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="max-w-8xl mx-auto">
+    <div className="max-w-8xl mx-auto md:px-4">
       <Navbar />
       <MobileNavbar />
       <div className='max-md:px-5 max-md:pt-5'>
