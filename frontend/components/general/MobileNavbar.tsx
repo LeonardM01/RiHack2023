@@ -46,7 +46,7 @@ const MobileNavbar = () => {
       <div className={`flex w-full z-50 self-start flex-col ${!mobileOpen && 'hidden'} bg-black-300/80 animate-in fade-in duration-250 h-screen`}>
         <div className='flex flex-col gap-10 bg-black-100 z-50 h-fit py-10'>
           {links.map((link: { name: string, url: string }, index: number) => (
-            <Link key={index} className={`${pathname === link.url ? 'text-primary border-b border-primary' : 'hover:text-white/80'} w-fit`} href={link.url}>{link.name}</Link>
+            <Link onClick={() => setMobileOpen(false)} key={index} className={`${pathname === link.url ? 'text-primary border-b border-primary' : 'hover:text-white/80'} w-fit`} href={link.url}>{link.name}</Link>
           ))}
         </div>
       </div>

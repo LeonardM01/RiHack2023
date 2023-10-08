@@ -39,7 +39,7 @@ function InitializeFrom() {
 
   return (
     <Dialog open={open}>
-      <DialogContent className="text-black-100">
+      <DialogContent className="text-black-100" style={{width: "90%"}}>
         <DialogHeader>
           <DialogTitle className="text-xl">Quick questionnaire about your habits.</DialogTitle>
         </DialogHeader>
@@ -57,7 +57,7 @@ function InitializeFrom() {
         </div>
         <div className="flex flex-col gap-2 py-4">
           <DialogDescription>
-            How did you find about our app?
+            How did you find out about our app?
           </DialogDescription>
           <Input type="text" className="text-md" />
         </div>

@@ -6,8 +6,8 @@ import React from 'react'
 
 const Games = () => {
   return (
-    <main className='w-full h-full flex mt-10 flex-wrap gap-10'>
-      <Link href="/games/checkers" className="w-full max-w-[450px]">
+    <main className='w-full h-full flex mt-16 md:mt-10 flex-wrap gap-10'>
+      <Link href="/games/checkers" className="w-full md:max-w-[425px]">
         <Card className='bg-black-300 border-0 text-white px-2 py-4'>
           <CardTitle className='px-5'>
             Checkers
@@ -26,7 +26,7 @@ const Games = () => {
         </Card>
       </Link>
 
-      <Link href="/games/chess" className="w-full max-w-[450px]">
+      <Link href="/games/chess" className="w-full md:max-w-[425px]">
         <Card className='bg-black-300 border-0 text-white px-2 py-4'>
           <CardTitle className='px-5'>
             Chess
@@ -45,7 +45,7 @@ const Games = () => {
         </Card>
       </Link>
 
-      <Link href="/games/solitare" className="w-full max-w-[450px]">
+      <Link href="/games/solitare" className="w-full md:max-w-[425px]">
         <Card className='bg-black-300 border-0 text-white px-2 py-4'>
           <CardTitle className='px-5'>
             Solitare
