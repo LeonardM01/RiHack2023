@@ -10,12 +10,16 @@ import { Conversation } from "@/types";
 const ChatCard = async ({
   convo,
 }: {
-  convo: Conversation;
+  convo: {
+    conversation: Conversation,
+    friendId: string,
+  };
 }) => {
   const cookieStore = cookies();
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
-  const sender = await getUserById(supabase, convo.random_user_id || "");
+  const sender = await getUserById(supabase, convo.friendId || "");
+  console.log(convo.friendId);
 
   return (
     <Link
@@ -28,6 +32,7 @@ const ChatCard = async ({
         }
         width={70}
         height={70}
+        className="rounded-full"
         alt='avatar'
       />
       <p className='self-center'>

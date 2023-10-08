@@ -37,7 +37,7 @@ const MapCard = () => {
         Going for a walk or a bycicle ride can have a better effect!
       </CardTitle>
       <CardDescription className='pt-2 px-5 paragraph-regular flex-start flex-col'>
-        Here our our recommended routes:
+        Here our recommended routes:
       </CardDescription>
       <CardContent className="flex-center px-0 pt-4 flex-col gap-5 px-5">
         <div className="flex flex-col mt-5 gap-3 self-start">

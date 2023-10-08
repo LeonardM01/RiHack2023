@@ -90,9 +90,9 @@ const StartServer = () => {
     // Handle when a new client connects
 
     // Handle when a client joins a room
-    socket.on('joinRoom', (roomId) => {
+    socket.on('joinRoom', (roomId, userId) => {
       socket.join(roomId);
-      console.log(`User joined room: ${roomId}`);
+      console.log(`${userId} joined room: ${roomId}`);
     });
 
     // Handle when a client sends a message to a room

@@ -32,7 +32,9 @@ const Chat = ({ params }: { params: { id: string } }) => {
       user?.id || ""
     );
 
+    console.log(user?.id)
     if (messagesData.length) {
+      console.log(messagesData);
       const senderData = await getUserById(
         supabase,
         conversationData[0].friendId || ""
@@ -43,33 +45,36 @@ const Chat = ({ params }: { params: { id: string } }) => {
   };
 
   useEffect(() => {
-    getPastMessages();
+    if (user) {
+      getPastMessages();
 
-    const socketInstance = io("http://localhost:3001", {
-      extraHeaders: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
-
-    socketInstance.emit("joinRoom", params.id);
-
-    socketInstance.on("msg", ({message, sender}) => {
-      console.log(message);
-      let updatedMessage = messages;
-      updatedMessage.push({
-        text: message,
-        sent_by: sender,
+      const socketInstance = io("http://192.168.102.254:3001", {
+        extraHeaders: {
+          "Access-Control-Allow-Origin": "*",
+        },
       });
-      setMessages(updatedMessage);
-    });
-    setSocket(socketInstance);
 
-    return () => {
-      socketInstance.disconnect();
-    };
-  }, [messages]);
+      socketInstance.emit("joinRoom", params.id, user?.id);
+
+      socketInstance.on("msg", ({ message, sender }) => {
+        let updatedMessage = messages;
+        updatedMessage.push({
+          text: message,
+          sent_by: sender,
+        });
+        setMessages(updatedMessage);
+        const element = document.getElementById("chat");
+
+        if (element) {
+          element.scrollTop = element.scrollHeight;
+        }
+      });
+      setSocket(socketInstance);
+    }
+  }, [user, messages]);
 
   const sendMessage = async () => {
+    console.log(user?.id)
     if (socket) socket.emit("message", params.id, message, user?.id);
   };
 
@@ -100,7 +105,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
           </div>
         )}
       </h3>
-      <div className='max-h-[780px] w-full overflow-auto pb-7'>
+      <div className='max-h-[780px] w-full overflow-auto pb-7' id='chat'>
         {messages?.length ? (
           <section className='mt-5 w-full flex flex-col gap-2 overflow-auto'>
             {messages?.map((message: Messages) => (
@@ -110,7 +115,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
                   message.sent_by === user?.id ? "self-start" : "self-end"
                 }`}
               >
-                <Image
+                {/* <Image
                   src={
                     message.sent_by === user?.id
                       ? !user.avatar
@@ -124,7 +129,7 @@ const Chat = ({ params }: { params: { id: string } }) => {
                   width={50}
                   height={50}
                   alt='avatar'
-                />
+                /> */}
                 <div className='text-white bg-black-400 h-fit self-center rounded-lg p-2 body-regular'>
                   {message.text}
                 </div>

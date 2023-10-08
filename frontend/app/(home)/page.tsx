@@ -11,9 +11,11 @@ const Home = async () => {
   const userId = (await supabase.auth.getUser()).data.user?.id || "";
   const {data: user} = await supabase.from('profiles').select('*').eq('id', userId).single();
   const userInitialized = user?.initialized ?? false;
+  
   if (!userInitialized) {
     return <InitializeFrom />
   }
+
   return (
     <main className="flex-center w-full h-full flex-col max-md:flex-col-reverse pb-14">
       <InfoCards />

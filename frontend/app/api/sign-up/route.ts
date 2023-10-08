@@ -22,8 +22,7 @@ export async function POST(request: NextRequest) {
           }
         }
       });
-
-    if (data) {
+    if (data.user) {
       return NextResponse.json("success", { status: 201 });
     } else {
       console.log(error)
