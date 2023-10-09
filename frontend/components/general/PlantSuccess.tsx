@@ -49,7 +49,7 @@ function PlantSuccess(props: {
         src='https://cdn.paddle.com/paddle/paddle.js'
         onReady={() => {
           Paddle.Environment.set("sandbox");
-          Paddle.Setup({ vendor: 11035 });
+          Paddle.Setup({ vendor: });
         }}
       />
       <DialogContent className='text-black-100 flex justify-center items-center flex-col gap-6'>
@@ -65,7 +65,7 @@ function PlantSuccess(props: {
           </DialogDescription>
         </DialogHeader>
         <div className="flex gap-5 self-start w-full">
-          <a href='#!' className='flex-center w-full bg-primary px-3 py-2 rounded-lg text-white body-regular' data-product='65085'>
+          <a href='#!' className='flex-center w-full bg-primary px-3 py-2 rounded-lg text-white body-regular' data-product=''>
             Donate Now
           </a>
           <Button onClick={handleSubmit} className=' text-white w-full body-regular'>
